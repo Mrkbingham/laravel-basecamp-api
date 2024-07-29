@@ -19,6 +19,7 @@ $projects = Basecamp::projects()->trashed();
 $project = Basecamp::projects()->show($id);
 
 // Dock items
+$project->cardTables();
 $project->campfire();
 $project->messageBoard();
 $project->todoset();
