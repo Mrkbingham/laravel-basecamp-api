@@ -9,7 +9,7 @@ class Project extends AbstractModel
     /**
      * Get the project campfire.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function campfire()
     {
@@ -19,9 +19,22 @@ class Project extends AbstractModel
     }
 
     /**
+     * Get the project card tables.
+     *
+     * @return \Illuminate\Support\Collection|CardTable
+     */
+    public function cardTables()
+    {
+        return collect($this->dock)->where('name', 'kanban_board')->map(function ($cardTable) {
+            $cardTable->bucket = $this;
+            return new CardTable($cardTable);
+        })->values();
+    }
+
+    /**
      * Get the project message board.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function messageBoard()
     {
@@ -34,7 +47,7 @@ class Project extends AbstractModel
     /**
      * Get the project todos.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function todoSet()
     {
@@ -46,7 +59,7 @@ class Project extends AbstractModel
     /**
      * Get the project schedule.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function schedule()
     {
@@ -58,7 +71,7 @@ class Project extends AbstractModel
     /**
      * Get the project automatic check-ins.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function questionnaire()
     {
@@ -71,7 +84,7 @@ class Project extends AbstractModel
     /**
      * Get the project docs and files.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function vault()
     {
@@ -83,7 +96,7 @@ class Project extends AbstractModel
     /**
      * Get the project docs and files.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function inbox()
     {
@@ -95,7 +108,7 @@ class Project extends AbstractModel
     /**
      * Get the project webhooks.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function webhooks()
     {
@@ -105,7 +118,7 @@ class Project extends AbstractModel
     /**
      * Get the project message types.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function messageTypes()
     {
@@ -115,7 +128,7 @@ class Project extends AbstractModel
     /**
      * Get a project client approvals.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function clientApprovals()
     {
@@ -125,7 +138,7 @@ class Project extends AbstractModel
     /**
      * Get a project client correspondences.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function clientCorrespondences()
     {
@@ -135,7 +148,7 @@ class Project extends AbstractModel
     /**
      * Get the project's client needle state.
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function needle()
     {
@@ -146,7 +159,7 @@ class Project extends AbstractModel
      * Update the project.
      *
      * @param  array  $data
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function update(array $data)
     {
@@ -160,7 +173,7 @@ class Project extends AbstractModel
     /**
      * Delete the project
      *
-     * @return \Illuminate\Http\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function destroy()
     {
