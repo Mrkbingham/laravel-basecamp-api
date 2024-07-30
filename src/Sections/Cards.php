@@ -3,22 +3,43 @@
 namespace Belvedere\Basecamp\Sections;
 
 use Belvedere\Basecamp\Models\Card;
-use Belvedere\Basecamp\Models\Todo;
 
 class Cards extends AbstractSection
 {
     /**
-     * Get a to-do.
+     * Index all campfires.
      *
-     * @param  int  $id
+     * @param integer|null $page The page number.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function index(int|null $page = null)
+    {
+        $url = sprintf('buckets/%d/card_tables/lists/%d/cards.json', $this->bucket, $this->parent);
+
+        $cards = $this->client->get($url, [
+            'query' => [
+                'page' => $page,
+            ],
+        ]);
+
+        return $this->indexResponse($cards, Card::class);
+    }
+
+    /**
+     * Get the cards.
+     *
+     * @param integer $bucketId The bucket ID.
+     * @param integer $id       The card table ID.
+     *
+     * @return Card
      */
     public function show(int $bucketId, int $id): Card
     {
         $card = $this->client->get(
-            sprintf('buckets/%d/card_tables/cards/%d.json',$bucketId, $id)
+            sprintf('buckets/%d/card_tables/cards/%d.json', $bucketId, $id)
         );
 
         return new Card($this->response($card));
     }
-
 }
