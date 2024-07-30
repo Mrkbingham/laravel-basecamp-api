@@ -34,6 +34,16 @@ abstract class AbstractModel
     }
 
     /**
+     * Outpouts the model to an array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * Get a property from the model.
      *
      * @param  string $property
