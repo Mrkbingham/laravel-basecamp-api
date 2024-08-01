@@ -42,4 +42,23 @@ class Cards extends AbstractSection
 
         return new Card($this->response($card));
     }
+
+    /**
+     * Update a card.
+     *
+     * @param  int    $id
+     * @param  array  $data
+     * @return \Illuminate\Support\Collection
+     */
+    public function update($id, array $data)
+    {
+        $card = $this->client->put(
+            sprintf('buckets/%d/card_tables/cards/%d.json', $this->bucket, $id),
+            [
+                'json' => $data,
+            ]
+        );
+
+        return new Card($this->response($card));
+    }
 }
