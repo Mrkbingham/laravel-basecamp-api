@@ -27,6 +27,23 @@ class Cards extends AbstractSection
     }
 
     /**
+     * Update a card.
+     *
+     * @param  int    $id
+     * @param  array  $data
+     * @return \Illuminate\Support\Collection
+     */
+    public function move($id, array $data)
+    {
+        return $this->client->post(
+            sprintf('buckets/%d/card_tables/cards/%d/moves.json', $this->bucket, $id),
+            [
+                'json' => $data,
+            ]
+        );
+    }
+
+    /**
      * Get the cards.
      *
      * @param integer $bucketId The bucket ID.
