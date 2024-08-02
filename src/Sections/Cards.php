@@ -7,7 +7,7 @@ use Belvedere\Basecamp\Models\Card;
 class Cards extends AbstractSection
 {
     /**
-     * Index all campfires.
+     * Index all cards.
      *
      * @param integer|null $page The page number.
      *
