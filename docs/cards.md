@@ -10,6 +10,15 @@ Basecamp::cards($this->projectID, $cardTableColumnID)->index();
 $cardTable->columns()->first()->cards()->index();
 ```
 
+## Create a new card
+
+```php
+Basecamp::cards($this->projectID)->create($cardTableColumnID, [
+    'title'       => 'New Card',
+    'description' => 'New description with all the good details'
+]);
+```
+
 ## Update a card
 
 ```php

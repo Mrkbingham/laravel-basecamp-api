@@ -7,6 +7,26 @@ use Belvedere\Basecamp\Models\Card;
 class Cards extends AbstractSection
 {
     /**
+     * Create a card.
+     *
+     * @param  integer $cardTableColumnID
+     * @param  array   $createData
+     *
+     * @return Card
+     */
+    public function create(int $cardTableColumnID, array $createData)
+    {
+        $card = $this->client->post(
+            sprintf('buckets/%d/card_tables/lists/%d/cards.json', $this->bucket, $cardTableColumnID),
+            [
+                'json' => $createData,
+            ]
+        );
+
+        return new Card($this->response($card));
+    }
+
+    /**
      * Index all cards.
      *
      * @param integer|null $page The page number.

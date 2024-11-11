@@ -3,11 +3,22 @@
 namespace Belvedere\Basecamp\Models;
 
 use Basecamp;
+use Exception;
 use Belvedere\Basecamp\Models\Traits\Commentable;
 
 class Card extends AbstractModel
 {
     use Commentable;
+
+    public function create(int $cardTableColumnID, array $createData)
+    {
+        // Make sure the createData has the required 'title' key
+        if (!array_key_exists('title', $createData)) {
+            throw new Exception('Failed to create a new card - missing required field: title.');
+        }
+
+        return Basecamp::cards($this->bucket->id)->create($cardTableColumnID, $createData);
+    }
 
     public function show($id)
     {
