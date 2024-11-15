@@ -6,7 +6,7 @@ use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use Illuminate\Cache\Repository;
-use MyApp\RateLimiterStore;
+use Belvedere\Basecamp\RateLimiterStore;
 use ReflectionClass;
 use Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware;
 
