@@ -6,7 +6,9 @@ use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use Illuminate\Cache\Repository;
+use MyApp\RateLimiterStore;
 use ReflectionClass;
+use Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware;
 
 class Client
 {
@@ -141,9 +143,13 @@ class Client
                 $this->api['token'], $this->config['basecamp.user-agent']
             )
         );
+
         $stack->push(
             ClientMiddlewares::retry($this->api, $this->config)
         );
+
+        // Add rate-limiter middleware
+        $stack->push(RateLimiterMiddleware::perSecond(5, new RateLimiterStore()));
 
         // Add custom middlewares.
         foreach ($this->middlewares as $middleware) {
